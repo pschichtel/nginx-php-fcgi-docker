@@ -1,28 +1,29 @@
+upstream application {
+    server ${FCGI_SERVER};
+}
+
 server {
-    listen       80;
+    listen       80 default;
     server_name  _;
+    charset      utf-8;
+    
+    root         /app;
 
     location / {
-        root   /usr/share/nginx/html;
         index  index.html index.htm index.php;
     }
 
     #error_page  404              /404.html;
 
-    # redirect server error pages to the static page /50x.html
-    #
     error_page  500 502 503 504  /50x.html;
     location = /50x.html {
         root   /usr/share/nginx/html;
     }
 
-    # pass the PHP scripts to FastCGI server listening on 127.0.0.1:9000
-    #
     location ~ \.php$ {
-        root                    /usr/share/nginx/html;
         include                 fastcgi_params;
          
-        fastcgi_pass            ${FCGI_SERVER};
+        fastcgi_pass            application;
         fastcgi_param           PATH_INFO $fastcgi_path_info;
         
         fastcgi_connect_timeout 3m;
@@ -33,9 +34,6 @@ server {
         if (!-f $document_root$fastcgi_script_name) { return 404; }
     }
 
-    # deny access to .htaccess files, if Apache's document root
-    # concurs with nginx's one
-    #
     location ~ /\.ht {
         deny  all;
     }
