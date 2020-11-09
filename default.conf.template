@@ -19,7 +19,7 @@ server {
     }
 
     location ~ ^(.+\.php)((?:\?|/).*)?$ {
-        include                 fastcgi_params;
+        include                 fastcgi.conf;
          
         fastcgi_pass            ${FCGI_SERVER};
         fastcgi_param           PATH_INFO $fastcgi_path_info;
