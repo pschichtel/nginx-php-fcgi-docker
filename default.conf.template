@@ -1,7 +1,3 @@
-#upstream application {
-#    server ${FCGI_SERVER};
-#}
-
 server {
     listen       80 default;
     server_name  _;
@@ -26,7 +22,6 @@ server {
         include                 fastcgi_params;
          
         fastcgi_pass            ${FCGI_SERVER};
-        #fastcgi_pass            application;
         fastcgi_param           PATH_INFO $fastcgi_path_info;
         
         fastcgi_connect_timeout 3m;
