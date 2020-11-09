@@ -23,7 +23,7 @@ server {
          
         fastcgi_pass            ${FCGI_SERVER};
         fastcgi_param           PATH_INFO          $fastcgi_path_info;
-        fastcgi_param           SCRIPT_FILENAME    ${FCGI_ROOT}$fastcgi_script_name
+        fastcgi_param           SCRIPT_FILENAME    ${FCGI_ROOT}$fastcgi_script_name;
         
         fastcgi_connect_timeout 3m;
         fastcgi_read_timeout    3m;
