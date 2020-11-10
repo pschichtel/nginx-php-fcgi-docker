@@ -20,8 +20,10 @@ server {
 
     location ~ ^(.+\.php)((?:\?|/).*)?$ {
         include                 fastcgi_params;
-         
-        fastcgi_pass            ${FCGI_SERVER};
+
+        # this is a trick to make nginx accept hostname that might not resolve during startup
+        set                     $target            ${FGCI_SERVER};
+        fastcgi_pass            $target;
         fastcgi_param           PATH_INFO          $fastcgi_path_info;
         fastcgi_param           SCRIPT_FILENAME    ${FCGI_ROOT}$fastcgi_script_name;
         
