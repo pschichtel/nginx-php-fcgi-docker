@@ -33,7 +33,11 @@ server {
         fastcgi_send_timeout    3m;
         fastcgi_split_path_info ^(.+\.php)((?:\?|/).*)?$;
 
+        client_max_body_size    0;
+
         if (!-f $document_root$fastcgi_script_name) { return 404; }
+
+        include /php-location/*.conf;
     }
 
     location ~ /\.ht {
