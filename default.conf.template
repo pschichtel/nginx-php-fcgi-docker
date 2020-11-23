@@ -28,14 +28,15 @@ server {
         fastcgi_param           PATH_INFO          $fastcgi_path_info;
         fastcgi_param           SCRIPT_FILENAME    ${FCGI_ROOT}$fastcgi_script_name;
         
-        fastcgi_connect_timeout 3m;
-        fastcgi_read_timeout    3m;
-        fastcgi_send_timeout    3m;
-        fastcgi_split_path_info ^(.+\.php)((?:\?|/).*)?$;
+        fastcgi_connect_timeout   3m;
+        fastcgi_read_timeout      3m;
+        fastcgi_send_timeout      3m;
+        fastcgi_split_path_info   ^(.+\.php)((?:\?|/).*)?$;
+        fastcgi_request_buffering off;
 
-        client_max_body_size    0;
+        client_max_body_size 0;
 
-        if (!-f $document_root$fastcgi_script_name) { return 404; }
+        try_files $fastcgi_script_name =404;
 
         include /php-location/*.conf;
     }
@@ -44,4 +45,3 @@ server {
         deny  all;
     }
 }
-
