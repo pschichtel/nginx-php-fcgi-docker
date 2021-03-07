@@ -44,4 +44,6 @@ server {
     location ~ /\.ht {
         deny  all;
     }
+
+    include /default-server/*.conf;
 }
